@@ -8,7 +8,7 @@ import { DirectorChart } from "@/components/charts/DirectorChart";
 import { MonthlyTrendChart } from "@/components/charts/MonthlyTrendChart";
 import { YearlyTrendChart } from "@/components/charts/YearlyTrendChart";
 import { WordCloud } from "@/components/WordCloud";
-import { Conclusion } from "@/components/Conclusion";
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Loader2 } from "lucide-react";
 
@@ -170,26 +170,6 @@ const Index = () => {
 
           <WordCloud data={data} />
         </div>
-
-        {/* Insights & Conclusion */}
-        <Conclusion data={data} />
-
-        {/* Footer */}
-        <footer className="bg-gradient-to-r from-gray-50 to-gray-100 rounded-2xl p-8 text-center border">
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <div className="w-8 h-8 bg-red-600 rounded-full flex items-center justify-center">
-              <span className="text-white text-sm font-bold">N</span>
-            </div>
-            <span className="text-lg font-semibold">Netflix Data Analytics</span>
-          </div>
-          <p className="text-sm text-muted-foreground max-w-2xl mx-auto">
-            This interactive dashboard replicates the functionality of a comprehensive Jupyter notebook 
-            with enhanced user experience, real-time data processing, and dynamic visualizations.
-          </p>
-          <div className="flex justify-center gap-4 mt-6 text-xs text-muted-foreground">
-            <span>Data Science</span> • <span>React & TypeScript</span> • <span>Interactive Charts</span> • <span>Modern UI</span>
-          </div>
-        </footer>
       </div>
     </div>
   );
