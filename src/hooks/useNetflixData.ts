@@ -45,9 +45,6 @@ export const useNetflixData = () => {
     // Clean and process data
     const cleaned = uniqueData
       .filter(item => 
-        item.director && item.director.trim() !== '' &&
-        item.cast && item.cast.trim() !== '' &&
-        item.country && item.country.trim() !== '' &&
         item.date_added && item.date_added.trim() !== ''
       )
       .map(item => {
