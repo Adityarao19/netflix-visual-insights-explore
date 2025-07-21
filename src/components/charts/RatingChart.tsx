@@ -34,15 +34,21 @@ export const RatingChart = ({ data }: RatingChartProps) => {
   const topRatingPercentage = chartData[0] ? ((chartData[0].value / data.length) * 100).toFixed(1) : '0';
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Rating Distribution (Top 8)</CardTitle>
-        <CardDescription>
-          "{topRating}" rated content makes up {topRatingPercentage}% of Netflix's catalog, indicating their focus on broader audience appeal.
+    <Card className="shadow-card hover:shadow-lg transition-all duration-300 group">
+      <CardHeader className="pb-4">
+        <div className="flex items-center gap-3 mb-2">
+          <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center group-hover:bg-blue-200 transition-colors">
+            🏆
+          </div>
+          <CardTitle className="text-xl">Content Ratings</CardTitle>
+        </div>
+        <CardDescription className="text-base">
+          <span className="font-semibold text-blue-600">"{topRating}"</span> dominates at {topRatingPercentage}%, 
+          reflecting Netflix's broad audience strategy.
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <ResponsiveContainer width="100%" height={400}>
+        <ResponsiveContainer width="100%" height={450}>
           <PieChart>
             <Pie
               data={chartData}
@@ -50,16 +56,27 @@ export const RatingChart = ({ data }: RatingChartProps) => {
               cy="50%"
               labelLine={false}
               label={({ name, percent }) => `${name} (${(percent * 100).toFixed(0)}%)`}
-              outerRadius={120}
+              outerRadius={140}
               fill="#8884d8"
               dataKey="value"
+              style={{ filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.1))' }}
             >
               {chartData.map((entry, index) => (
                 <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />
               ))}
             </Pie>
-            <Tooltip formatter={(value: number) => [value.toLocaleString(), 'Count']} />
-            <Legend />
+            <Tooltip 
+              formatter={(value: number) => [value.toLocaleString(), 'Titles']}
+              contentStyle={{
+                backgroundColor: 'hsl(var(--card))',
+                border: '1px solid hsl(var(--border))',
+                borderRadius: '8px',
+                boxShadow: '0 4px 12px rgba(0,0,0,0.15)'
+              }}
+            />
+            <Legend 
+              wrapperStyle={{ fontSize: '14px', fontWeight: '500' }}
+            />
           </PieChart>
         </ResponsiveContainer>
       </CardContent>

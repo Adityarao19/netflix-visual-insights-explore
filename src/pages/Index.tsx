@@ -42,57 +42,128 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
-      <div className="bg-gradient-to-r from-primary/10 to-accent/10 border-b">
-        <div className="container mx-auto px-4 py-8">
-          <div className="text-center">
-            <h1 className="text-4xl font-bold mb-4">
-              🎬 Netflix Data Cleaning, Analysis & Visualization
+      {/* Hero Section */}
+      <div className="relative overflow-hidden">
+        <div className="absolute inset-0 gradient-hero opacity-90"></div>
+        <div className="absolute inset-0 bg-black/20"></div>
+        <div className="relative container mx-auto px-4 py-20">
+          <div className="text-center text-white">
+            <div className="inline-flex items-center gap-3 mb-6 animate-float">
+              <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
+                🎬
+              </div>
+              <span className="text-sm font-medium uppercase tracking-wider bg-white/20 px-3 py-1 rounded-full backdrop-blur-sm">
+                Data Science Project
+              </span>
+            </div>
+            <h1 className="text-6xl md:text-7xl font-bold mb-6 leading-tight">
+              Netflix Analytics
+              <span className="block text-4xl md:text-5xl text-red-300">Dashboard</span>
             </h1>
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-              Complete data science project analyzing Netflix content from 1925-2021. 
-              This interactive dashboard performs data cleaning, exploratory data analysis, 
-              and generates insights equivalent to a comprehensive Jupyter notebook.
+            <p className="text-xl text-white/90 max-w-4xl mx-auto mb-8 leading-relaxed">
+              Comprehensive analysis of Netflix content from 1925-2021. This interactive dashboard 
+              transforms raw CSV data into actionable insights through advanced data cleaning, 
+              exploratory analysis, and dynamic visualizations.
             </p>
+            <div className="flex flex-wrap justify-center gap-4">
+              <div className="bg-white/20 backdrop-blur-sm rounded-lg px-6 py-3">
+                <div className="text-2xl font-bold">{data.length.toLocaleString()}</div>
+                <div className="text-sm text-white/80">Titles Analyzed</div>
+              </div>
+              <div className="bg-white/20 backdrop-blur-sm rounded-lg px-6 py-3">
+                <div className="text-2xl font-bold">96+</div>
+                <div className="text-sm text-white/80">Years of Content</div>
+              </div>
+              <div className="bg-white/20 backdrop-blur-sm rounded-lg px-6 py-3">
+                <div className="text-2xl font-bold">190+</div>
+                <div className="text-sm text-white/80">Countries</div>
+              </div>
+            </div>
           </div>
         </div>
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent"></div>
       </div>
 
-      <div className="container mx-auto px-4 py-8 space-y-8">
-        {/* Step 1: Data Cleaning Summary */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-2xl text-primary">🧹 Step 1: Data Cleaning</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-sm text-muted-foreground mb-4">
-              Performed data cleaning: removed duplicates, dropped null values in director/cast/country fields, 
-              converted date_added to datetime, and created new columns (year_added, month_added, day_added).
+      <div className="container mx-auto px-4 -mt-16 relative z-10 space-y-12">
+        {/* Data Pipeline Section */}
+        <div className="grid md:grid-cols-3 gap-6 mb-16">
+          <Card className="shadow-card hover:shadow-lg transition-all duration-300 border-l-4 border-l-red-500">
+            <CardHeader className="pb-3">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center">
+                  🧹
+                </div>
+                <CardTitle className="text-lg">Data Cleaning</CardTitle>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-muted-foreground">
+                Removed duplicates, handled missing values, and normalized date formats for analysis.
+              </p>
+              <DataSummary data={data} originalCount={originalCount} />
+            </CardContent>
+          </Card>
+
+          <Card className="shadow-card hover:shadow-lg transition-all duration-300 border-l-4 border-l-blue-500">
+            <CardHeader className="pb-3">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                  📊
+                </div>
+                <CardTitle className="text-lg">Analysis & EDA</CardTitle>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-muted-foreground">
+                Comprehensive exploratory data analysis with interactive visualizations and trend analysis.
+              </p>
+            </CardContent>
+          </Card>
+
+          <Card className="shadow-card hover:shadow-lg transition-all duration-300 border-l-4 border-l-green-500">
+            <CardHeader className="pb-3">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
+                  🎯
+                </div>
+                <CardTitle className="text-lg">Insights & Findings</CardTitle>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-muted-foreground">
+                Data-driven insights and actionable recommendations for content strategy.
+              </p>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Analytics Dashboard */}
+        <div className="space-y-12">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-red-600 to-blue-600 bg-clip-text text-transparent">
+              Interactive Analytics Dashboard
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Explore Netflix's content landscape through dynamic charts and visualizations
             </p>
-            <DataSummary data={data} originalCount={originalCount} />
-          </CardContent>
-        </Card>
-
-        {/* Step 2: EDA & Visualizations */}
-        <div className="space-y-8">
-          <div className="text-center">
-            <h2 className="text-3xl font-bold text-primary mb-2">📊 Step 2: Exploratory Data Analysis</h2>
-            <p className="text-muted-foreground">Interactive visualizations with insights</p>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-8">
-            <ContentTypeChart data={data} />
-            <RatingChart data={data} />
+          {/* Primary Charts Grid */}
+          <div className="grid xl:grid-cols-2 gap-8">
+            <div className="space-y-8">
+              <ContentTypeChart data={data} />
+              <RatingChart data={data} />
+            </div>
+            <div className="space-y-8">
+              <CountryChart data={data} />
+              <DirectorChart data={data} />
+            </div>
           </div>
 
+          {/* Full Width Charts */}
           <GenreChart data={data} />
-
-          <div className="grid lg:grid-cols-2 gap-8">
-            <CountryChart data={data} />
-            <DirectorChart data={data} />
-          </div>
-
-          <div className="grid lg:grid-cols-2 gap-8">
+          
+          <div className="grid xl:grid-cols-2 gap-8">
             <MonthlyTrendChart data={data} />
             <YearlyTrendChart data={data} />
           </div>
@@ -100,16 +171,25 @@ const Index = () => {
           <WordCloud data={data} />
         </div>
 
-        {/* Step 3 & 4: Conclusion */}
+        {/* Insights & Conclusion */}
         <Conclusion data={data} />
 
         {/* Footer */}
-        <div className="text-center py-8 border-t">
-          <p className="text-sm text-muted-foreground">
-            📌 This interactive web-based analysis replicates all functionality of a 
-            "Netflix_Data_Analysis.ipynb" Jupyter notebook with enhanced interactivity and real-time insights.
+        <footer className="bg-gradient-to-r from-gray-50 to-gray-100 rounded-2xl p-8 text-center border">
+          <div className="flex items-center justify-center gap-3 mb-4">
+            <div className="w-8 h-8 bg-red-600 rounded-full flex items-center justify-center">
+              <span className="text-white text-sm font-bold">N</span>
+            </div>
+            <span className="text-lg font-semibold">Netflix Data Analytics</span>
+          </div>
+          <p className="text-sm text-muted-foreground max-w-2xl mx-auto">
+            This interactive dashboard replicates the functionality of a comprehensive Jupyter notebook 
+            with enhanced user experience, real-time data processing, and dynamic visualizations.
           </p>
-        </div>
+          <div className="flex justify-center gap-4 mt-6 text-xs text-muted-foreground">
+            <span>Data Science</span> • <span>React & TypeScript</span> • <span>Interactive Charts</span> • <span>Modern UI</span>
+          </div>
+        </footer>
       </div>
     </div>
   );

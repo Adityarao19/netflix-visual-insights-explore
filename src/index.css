@@ -36,7 +36,7 @@ All colors MUST be HSL.
     --input: 0 0% 89%;
     --ring: 0 85% 50%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
 
     /* Netflix theme colors */
     --netflix-red: 0 85% 50%;
@@ -44,20 +44,31 @@ All colors MUST be HSL.
     --netflix-gray: 0 0% 20%;
     --netflix-light-gray: 0 0% 40%;
 
+    /* Chart colors */
+    --chart-1: 0 85% 50%;
+    --chart-2: 25 95% 53%;
+    --chart-3: 221 83% 53%;
+    --chart-4: 142 71% 45%;
+    --chart-5: 262 83% 58%;
+
+    /* Netflix-inspired gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(0, 85%, 50%) 0%, hsl(0, 85%, 40%) 100%);
+    --gradient-hero: linear-gradient(135deg, hsl(0, 85%, 50%) 0%, hsl(221, 83%, 53%) 50%, hsl(262, 83%, 58%) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(0, 0%, 100%) 0%, hsl(0, 0%, 98%) 100%);
+    --gradient-accent: linear-gradient(90deg, hsl(0, 85%, 50%) 0%, hsl(25, 95%, 53%) 100%);
+    
+    /* Shadows */
+    --shadow-glow: 0 0 40px hsl(0 85% 50% / 0.3);
+    --shadow-card: 0 4px 20px hsl(0 0% 0% / 0.1);
+    --shadow-hero: 0 25px 50px -12px hsl(0 85% 50% / 0.4);
+
     --sidebar-background: 0 0% 98%;
-
     --sidebar-foreground: 240 5.3% 26.1%;
-
     --sidebar-primary: 240 5.9% 10%;
-
     --sidebar-primary-foreground: 0 0% 98%;
-
     --sidebar-accent: 240 4.8% 95.9%;
-
     --sidebar-accent-foreground: 240 5.9% 10%;
-
     --sidebar-border: 220 13% 91%;
-
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
@@ -108,4 +119,63 @@ All colors MUST be HSL.
   body {
     @apply bg-background text-foreground;
   }
+  }
+}
+
+@layer components {
+  .gradient-primary {
+    background: var(--gradient-primary);
+  }
+  
+  .gradient-hero {
+    background: var(--gradient-hero);
+  }
+  
+  .gradient-card {
+    background: var(--gradient-card);
+  }
+  
+  .gradient-accent {
+    background: var(--gradient-accent);
+  }
+  
+  .shadow-glow {
+    box-shadow: var(--shadow-glow);
+  }
+  
+  .shadow-card {
+    box-shadow: var(--shadow-card);
+  }
+  
+  .shadow-hero {
+    box-shadow: var(--shadow-hero);
+  }
+  
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  .animate-pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite alternate;
+  }
+  
+  .glass-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+  
+  .netflix-button {
+    @apply bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-red-500/25;
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes pulse-glow {
+  0% { box-shadow: 0 0 20px hsl(0 85% 50% / 0.3); }
+  100% { box-shadow: 0 0 40px hsl(0 85% 50% / 0.6); }
 }

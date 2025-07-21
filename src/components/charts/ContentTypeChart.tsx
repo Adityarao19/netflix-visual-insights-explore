@@ -23,23 +23,49 @@ export const ContentTypeChart = ({ data }: ContentTypeChartProps) => {
   const moviePercentage = ((totalMovies / (totalMovies + totalTVShows)) * 100).toFixed(1);
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Distribution of Movies vs TV Shows</CardTitle>
-        <CardDescription>
-          Netflix has significantly more movies ({moviePercentage}%) than TV shows, indicating their content strategy focuses heavily on film acquisitions.
+    <Card className="shadow-card hover:shadow-lg transition-all duration-300 group">
+      <CardHeader className="pb-4">
+        <div className="flex items-center gap-3 mb-2">
+          <div className="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center group-hover:bg-red-200 transition-colors">
+            🎬
+          </div>
+          <CardTitle className="text-xl">Content Distribution</CardTitle>
+        </div>
+        <CardDescription className="text-base">
+          Netflix has <span className="font-semibold text-red-600">{moviePercentage}%</span> movies vs TV shows, 
+          showing their film-focused content strategy.
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <ResponsiveContainer width="100%" height={300}>
-          <BarChart data={chartData}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
-            <YAxis />
-            <Tooltip 
-              formatter={(value: number) => [value.toLocaleString(), 'Count']}
+        <ResponsiveContainer width="100%" height={350}>
+          <BarChart data={chartData} margin={{ top: 20, right: 20, left: 20, bottom: 20 }}>
+            <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" opacity={0.3} />
+            <XAxis 
+              dataKey="name" 
+              tick={{ fontSize: 14, fontWeight: 500 }}
+              axisLine={{ stroke: 'hsl(var(--border))' }}
+              tickLine={{ stroke: 'hsl(var(--border))' }}
             />
-            <Bar dataKey="value" fill="hsl(var(--primary))" />
+            <YAxis 
+              tick={{ fontSize: 12 }}
+              axisLine={{ stroke: 'hsl(var(--border))' }}
+              tickLine={{ stroke: 'hsl(var(--border))' }}
+            />
+            <Tooltip 
+              formatter={(value: number) => [value.toLocaleString(), 'Titles']}
+              contentStyle={{
+                backgroundColor: 'hsl(var(--card))',
+                border: '1px solid hsl(var(--border))',
+                borderRadius: '8px',
+                boxShadow: '0 4px 12px rgba(0,0,0,0.15)'
+              }}
+            />
+            <Bar 
+              dataKey="value" 
+              fill="hsl(var(--chart-1))" 
+              radius={[4, 4, 0, 0]}
+              style={{ filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.1))' }}
+            />
           </BarChart>
         </ResponsiveContainer>
       </CardContent>

@@ -26,28 +26,56 @@ export const CountryChart = ({ data }: CountryChartProps) => {
   const usPercentage = ((usContent / data.length) * 100).toFixed(1);
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Top 10 Countries with Most Content</CardTitle>
-        <CardDescription>
-          {topCountry} leads Netflix's content production, with US content representing {usPercentage}% of the total catalog, showing Netflix's global but US-centric approach.
+    <Card className="shadow-card hover:shadow-lg transition-all duration-300 group">
+      <CardHeader className="pb-4">
+        <div className="flex items-center gap-3 mb-2">
+          <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center group-hover:bg-green-200 transition-colors">
+            🌍
+          </div>
+          <CardTitle className="text-xl">Global Content Distribution</CardTitle>
+        </div>
+        <CardDescription className="text-base">
+          <span className="font-semibold text-green-600">{topCountry}</span> leads with {usPercentage}% 
+          of content, showcasing Netflix's global but US-focused strategy.
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <ResponsiveContainer width="100%" height={400}>
-          <BarChart data={chartData} layout="horizontal">
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis type="number" />
+        <ResponsiveContainer width="100%" height={450}>
+          <BarChart 
+            data={chartData} 
+            layout="horizontal"
+            margin={{ top: 20, right: 30, left: 100, bottom: 20 }}
+          >
+            <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" opacity={0.3} />
+            <XAxis 
+              type="number" 
+              tick={{ fontSize: 12 }}
+              axisLine={{ stroke: 'hsl(var(--border))' }}
+              tickLine={{ stroke: 'hsl(var(--border))' }}
+            />
             <YAxis 
               dataKey="country" 
               type="category" 
-              width={80}
-              fontSize={12}
+              width={100}
+              tick={{ fontSize: 11, fontWeight: 500 }}
+              axisLine={{ stroke: 'hsl(var(--border))' }}
+              tickLine={{ stroke: 'hsl(var(--border))' }}
             />
             <Tooltip 
-              formatter={(value: number) => [value.toLocaleString(), 'Count']}
+              formatter={(value: number) => [value.toLocaleString(), 'Titles']}
+              contentStyle={{
+                backgroundColor: 'hsl(var(--card))',
+                border: '1px solid hsl(var(--border))',
+                borderRadius: '8px',
+                boxShadow: '0 4px 12px rgba(0,0,0,0.15)'
+              }}
             />
-            <Bar dataKey="count" fill="hsl(var(--primary))" />
+            <Bar 
+              dataKey="count" 
+              fill="hsl(var(--chart-4))" 
+              radius={[0, 4, 4, 0]}
+              style={{ filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.1))' }}
+            />
           </BarChart>
         </ResponsiveContainer>
       </CardContent>
