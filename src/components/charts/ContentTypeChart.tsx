@@ -7,20 +7,25 @@ interface ContentTypeChartProps {
 }
 
 export const ContentTypeChart = ({ data }: ContentTypeChartProps) => {
+  console.log('ContentTypeChart data length:', data.length);
+  
   const chartData: ChartData[] = [
     {
       name: 'Movies',
       value: data.filter(item => item.type === 'Movie').length
     },
     {
-      name: 'TV Shows',
+      name: 'TV Shows', 
       value: data.filter(item => item.type === 'TV Show').length
     }
-  ];
+  ].filter(item => item.value > 0);
 
-  const totalMovies = chartData[0].value;
-  const totalTVShows = chartData[1].value;
-  const moviePercentage = ((totalMovies / (totalMovies + totalTVShows)) * 100).toFixed(1);
+  const totalMovies = chartData.find(item => item.name === 'Movies')?.value || 0;
+  const totalTVShows = chartData.find(item => item.name === 'TV Shows')?.value || 0;
+  const total = totalMovies + totalTVShows;
+  const moviePercentage = total > 0 ? ((totalMovies / total) * 100).toFixed(1) : '0';
+
+  console.log('ContentType chartData:', chartData);
 
   return (
     <Card className="shadow-card hover:shadow-lg transition-all duration-300 group">

@@ -58,7 +58,7 @@ export const WordCloud = ({ data }: WordCloudProps) => {
               
               return (
                 <span
-                  key={word}
+                  key={`word-${word}-${index}-${count}`}
                   className="font-bold transition-all duration-300 hover:scale-110 cursor-pointer rounded-md px-2 py-1 hover:bg-white/50"
                   style={{
                     fontSize: `${fontSize}px`,

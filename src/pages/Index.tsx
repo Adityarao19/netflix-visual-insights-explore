@@ -15,6 +15,10 @@ import { Loader2 } from "lucide-react";
 const Index = () => {
   const { data, loading, error } = useNetflixData();
 
+  console.log('Index component - data length:', data.length);
+  console.log('Index component - loading:', loading);
+  console.log('Index component - error:', error);
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background">

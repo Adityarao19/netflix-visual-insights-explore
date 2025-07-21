@@ -10,19 +10,27 @@ export const DirectorChart = ({ data }: DirectorChartProps) => {
   const directorCounts: { [key: string]: number } = {};
 
   data.forEach(item => {
-    const directors = item.director.split(',').map(d => d.trim());
-    directors.forEach(director => {
-      directorCounts[director] = (directorCounts[director] || 0) + 1;
-    });
+    if (item.director && item.director.trim() !== '') {
+      const directors = item.director.split(',').map(d => d.trim());
+      directors.forEach(director => {
+        if (director && director !== 'Not Given' && director !== '') {
+          directorCounts[director] = (directorCounts[director] || 0) + 1;
+        }
+      });
+    }
   });
 
   const chartData: DirectorData[] = Object.entries(directorCounts)
     .map(([director, count]) => ({ director, count }))
     .sort((a, b) => b.count - a.count)
-    .slice(0, 10);
+    .slice(0, 10)
+    .filter(item => item.count > 0);
 
   const topDirector = chartData[0]?.director || 'N/A';
   const topDirectorCount = chartData[0]?.count || 0;
+
+  console.log('DirectorChart data length:', data.length);
+  console.log('DirectorChart chartData:', chartData.slice(0, 3));
 
   return (
     <Card className="shadow-card hover:shadow-lg transition-all duration-300 group">

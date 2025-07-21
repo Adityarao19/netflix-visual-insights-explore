@@ -10,20 +10,25 @@ export const CountryChart = ({ data }: CountryChartProps) => {
   const countryCounts: { [key: string]: number } = {};
 
   data.forEach(item => {
-    const countries = item.country.split(',').map(c => c.trim());
-    countries.forEach(country => {
-      countryCounts[country] = (countryCounts[country] || 0) + 1;
-    });
+    if (item.country && item.country.trim() !== '') {
+      const countries = item.country.split(',').map(c => c.trim());
+      countries.forEach(country => {
+        if (country && country !== 'Not Given' && country !== '') {
+          countryCounts[country] = (countryCounts[country] || 0) + 1;
+        }
+      });
+    }
   });
 
   const chartData: CountryData[] = Object.entries(countryCounts)
     .map(([country, count]) => ({ country, count }))
     .sort((a, b) => b.count - a.count)
-    .slice(0, 10);
+    .slice(0, 10)
+    .filter(item => item.count > 0);
 
   const topCountry = chartData[0]?.country || 'N/A';
   const usContent = chartData.find(c => c.country === 'United States')?.count || 0;
-  const usPercentage = ((usContent / data.length) * 100).toFixed(1);
+  const usPercentage = usContent > 0 ? ((usContent / data.length) * 100).toFixed(1) : '0';
 
   return (
     <Card className="shadow-card hover:shadow-lg transition-all duration-300 group">

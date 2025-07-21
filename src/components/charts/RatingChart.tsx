@@ -10,28 +10,29 @@ export const RatingChart = ({ data }: RatingChartProps) => {
   const ratingCounts: { [key: string]: number } = {};
 
   data.forEach(item => {
-    const rating = item.rating || 'Unrated';
+    const rating = item.rating && item.rating.trim() !== '' ? item.rating : 'Unrated';
     ratingCounts[rating] = (ratingCounts[rating] || 0) + 1;
   });
 
   const chartData: ChartData[] = Object.entries(ratingCounts)
     .map(([name, value]) => ({ name, value }))
     .sort((a, b) => b.value - a.value)
-    .slice(0, 8);
+    .slice(0, 8)
+    .filter(item => item.value > 0);
 
   const colors = [
-    'hsl(var(--primary))',
-    'hsl(var(--accent))',
-    'hsl(var(--secondary))',
-    'hsl(210, 100%, 50%)',
-    'hsl(300, 100%, 50%)',
-    'hsl(60, 100%, 50%)',
-    'hsl(120, 100%, 50%)',
-    'hsl(180, 100%, 50%)'
+    'hsl(var(--chart-1))',
+    'hsl(var(--chart-2))', 
+    'hsl(var(--chart-3))',
+    'hsl(var(--chart-4))',
+    'hsl(var(--chart-5))',
+    'hsl(262, 83%, 58%)',
+    'hsl(142, 71%, 45%)',
+    'hsl(25, 95%, 53%)'
   ];
 
   const topRating = chartData[0]?.name || 'N/A';
-  const topRatingPercentage = chartData[0] ? ((chartData[0].value / data.length) * 100).toFixed(1) : '0';
+  const topRatingPercentage = chartData[0] && data.length > 0 ? ((chartData[0].value / data.length) * 100).toFixed(1) : '0';
 
   return (
     <Card className="shadow-card hover:shadow-lg transition-all duration-300 group">
@@ -62,7 +63,7 @@ export const RatingChart = ({ data }: RatingChartProps) => {
               style={{ filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.1))' }}
             >
               {chartData.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />
+                <Cell key={`rating-cell-${entry.name}-${index}`} fill={colors[index % colors.length]} />
               ))}
             </Pie>
             <Tooltip 

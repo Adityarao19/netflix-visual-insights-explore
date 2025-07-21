@@ -10,18 +10,26 @@ export const GenreChart = ({ data }: GenreChartProps) => {
   const genreCounts: { [key: string]: number } = {};
 
   data.forEach(item => {
-    const genres = item.listed_in.split(',').map(g => g.trim());
-    genres.forEach(genre => {
-      genreCounts[genre] = (genreCounts[genre] || 0) + 1;
-    });
+    if (item.listed_in && item.listed_in.trim() !== '') {
+      const genres = item.listed_in.split(',').map(g => g.trim());
+      genres.forEach(genre => {
+        if (genre && genre !== '') {
+          genreCounts[genre] = (genreCounts[genre] || 0) + 1;
+        }
+      });
+    }
   });
 
   const chartData: GenreData[] = Object.entries(genreCounts)
     .map(([genre, count]) => ({ genre, count }))
     .sort((a, b) => b.count - a.count)
-    .slice(0, 10);
+    .slice(0, 10)
+    .filter(item => item.count > 0);
 
   const topGenre = chartData[0]?.genre || 'N/A';
+
+  console.log('GenreChart data length:', data.length);
+  console.log('GenreChart chartData:', chartData.slice(0, 3));
 
   return (
     <Card className="shadow-card hover:shadow-lg transition-all duration-300 group">
