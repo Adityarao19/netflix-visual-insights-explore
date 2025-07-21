@@ -29,9 +29,9 @@ export const YearlyTrendChart = ({ data }: YearlyTrendChartProps) => {
     }))
     .sort((a, b) => a.year - b.year);
 
-  const peakYear = chartData.reduce((prev, current) => 
+  const peakYear = chartData.length > 0 ? chartData.reduce((prev, current) => 
     (prev.Movies + prev['TV Shows']) > (current.Movies + current['TV Shows']) ? prev : current
-  );
+  ) : { year: 0, Movies: 0, 'TV Shows': 0 };
 
   return (
     <Card>
