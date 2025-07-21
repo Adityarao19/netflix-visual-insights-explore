@@ -35,36 +35,67 @@ export const WordCloud = ({ data }: WordCloudProps) => {
   const topWords = wordFrequency.slice(0, 10).map(([word]) => word).join(', ');
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Word Cloud of Netflix Titles</CardTitle>
-        <CardDescription>
-          Most frequent words: {topWords}. These reveal Netflix's content themes focusing on drama, comedy, and character-driven narratives.
+    <Card className="shadow-card hover:shadow-lg transition-all duration-300 group">
+      <CardHeader className="pb-4">
+        <div className="flex items-center gap-3 mb-2">
+          <div className="w-10 h-10 bg-indigo-100 rounded-lg flex items-center justify-center group-hover:bg-indigo-200 transition-colors">
+            ☁️
+          </div>
+          <CardTitle className="text-xl">Title Word Cloud</CardTitle>
+        </div>
+        <CardDescription className="text-base">
+          Most frequent words: <span className="font-semibold text-indigo-600">{topWords}</span>. 
+          These reveal Netflix's content themes focusing on drama, character-driven narratives.
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <div className="flex flex-wrap gap-2 justify-center p-4 bg-muted/20 rounded-lg min-h-[300px] items-center">
-          {wordFrequency.map(([word, count], index) => {
-            const fontSize = Math.max(12, (count / maxCount) * 32);
-            const opacity = Math.max(0.6, count / maxCount);
-            
-            return (
-              <span
-                key={word}
-                className="font-semibold transition-all hover:scale-110 cursor-default"
-                style={{
-                  fontSize: `${fontSize}px`,
-                  opacity,
-                  color: index < 10 ? 'hsl(var(--primary))' : 
-                         index < 20 ? 'hsl(var(--accent))' : 
-                         'hsl(var(--muted-foreground))'
-                }}
-                title={`${word}: ${count} occurrences`}
-              >
-                {word}
-              </span>
-            );
-          })}
+        <div className="relative">
+          <div className="absolute inset-0 bg-gradient-to-br from-indigo-50/50 to-purple-50/50 rounded-lg"></div>
+          <div className="relative flex flex-wrap gap-3 justify-center p-6 rounded-lg min-h-[350px] items-center">
+            {wordFrequency.map(([word, count], index) => {
+              const fontSize = Math.max(14, Math.min(40, (count / maxCount) * 42));
+              const opacity = Math.max(0.7, count / maxCount);
+              
+              return (
+                <span
+                  key={word}
+                  className="font-bold transition-all duration-300 hover:scale-110 cursor-pointer rounded-md px-2 py-1 hover:bg-white/50"
+                  style={{
+                    fontSize: `${fontSize}px`,
+                    opacity,
+                    color: index < 5 ? 'hsl(var(--chart-1))' : 
+                           index < 15 ? 'hsl(var(--chart-3))' : 
+                           index < 25 ? 'hsl(var(--chart-5))' :
+                           'hsl(var(--muted-foreground))',
+                    textShadow: '0 1px 2px rgba(0,0,0,0.1)'
+                  }}
+                  title={`"${word}" appears ${count} times`}
+                >
+                  {word}
+                </span>
+              );
+            })}
+          </div>
+        </div>
+        
+        {/* Word frequency stats */}
+        <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4 pt-4 border-t">
+          <div className="text-center">
+            <div className="text-lg font-bold text-indigo-600">{wordFrequency.length}</div>
+            <div className="text-xs text-muted-foreground">Unique Words</div>
+          </div>
+          <div className="text-center">
+            <div className="text-lg font-bold text-purple-600">{maxCount}</div>
+            <div className="text-xs text-muted-foreground">Max Frequency</div>
+          </div>
+          <div className="text-center">
+            <div className="text-lg font-bold text-blue-600">{wordFrequency[0]?.[0] || 'N/A'}</div>
+            <div className="text-xs text-muted-foreground">Most Common</div>
+          </div>
+          <div className="text-center">
+            <div className="text-lg font-bold text-cyan-600">{data.length}</div>
+            <div className="text-xs text-muted-foreground">Total Titles</div>
+          </div>
         </div>
       </CardContent>
     </Card>
