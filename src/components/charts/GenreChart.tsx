@@ -30,6 +30,7 @@ export const GenreChart = ({ data }: GenreChartProps) => {
 
   console.log('GenreChart data length:', data.length);
   console.log('GenreChart chartData:', chartData.slice(0, 3));
+  console.log('Sample genre values:', data.slice(0, 5).map(d => d.listed_in));
 
   return (
     <Card className="shadow-card hover:shadow-lg transition-all duration-300 group">

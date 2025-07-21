@@ -42,7 +42,7 @@ export const useNetflixData = () => {
       index === self.findIndex(t => t.show_id === item.show_id)
     );
 
-    // Clean and process data
+    // Clean and process data - less restrictive filtering
     const cleaned = uniqueData
       .filter(item => 
         item.date_added && item.date_added.trim() !== ''

@@ -10,7 +10,7 @@ export const DirectorChart = ({ data }: DirectorChartProps) => {
   const directorCounts: { [key: string]: number } = {};
 
   data.forEach(item => {
-    if (item.director && item.director.trim() !== '') {
+    if (item.director && item.director.trim() !== '' && item.director !== 'Not Given') {
       const directors = item.director.split(',').map(d => d.trim());
       directors.forEach(director => {
         if (director && director !== 'Not Given' && director !== '') {
@@ -31,6 +31,7 @@ export const DirectorChart = ({ data }: DirectorChartProps) => {
 
   console.log('DirectorChart data length:', data.length);
   console.log('DirectorChart chartData:', chartData.slice(0, 3));
+  console.log('Sample director values:', data.slice(0, 5).map(d => d.director));
 
   return (
     <Card className="shadow-card hover:shadow-lg transition-all duration-300 group">
